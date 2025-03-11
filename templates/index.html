@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Task Planner</title>
+</head>
+<body>
+    <h1>AI Task Planning System</h1>
+    <textarea id="project-description" placeholder="Describe your project..."></textarea>
+    <button id="analyze-button">Analyze Project</button>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('analyze-button').addEventListener('click', async () => {
+            const description = document.getElementById('project-description').value;
+            const response = await fetch('/api/analyze_project', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({description})
+            });
+            const data = await response.json();
+            document.getElementById('results').innerText = data.tasks;
+        });
+    </script>
+</body>
+</html>
